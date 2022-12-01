@@ -5,9 +5,10 @@ import "./App.css";
 // import Rooms from "./components/Rooms";
 import styled from "styled-components";
 //import { io } from "socket.io-client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import socketService from "./services/socketService";
 import { JoinRoom } from "./components/JoinRom";
+import GameContext, { IGameContextProps } from "./gameContext";
 
 const AppContainer = styled.div`
     width: 100%;
@@ -31,6 +32,8 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+    const [isInRoom, setInRoom] = useState(false);
+
     const connectSocket = async () => {
         const socket = await socketService.connect("http://localhost:5000").catch((err) => {
             console.log("Error: ", err);
@@ -41,13 +44,20 @@ function App() {
         connectSocket();
     }, []);
 
+    const gameContextValue: IGameContextProps = {
+        isInRoom,
+        setInRoom,
+    };
+
     return (
-        <AppContainer>
-            <WelcomeText>Welcome to Tic-Tac-toe</WelcomeText>
-            <MainContainer>
-                <JoinRoom />
-            </MainContainer>
-        </AppContainer>
+        <GameContext.Provider value={gameContextValue}>
+            <AppContainer>
+                <WelcomeText>Welcome to Tic-Tac-toe</WelcomeText>
+                <MainContainer>
+                    <JoinRoom />
+                </MainContainer>
+            </AppContainer>
+        </GameContext.Provider>
     );
 }
 
