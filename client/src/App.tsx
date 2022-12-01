@@ -7,6 +7,7 @@ import styled from "styled-components";
 //import { io } from "socket.io-client";
 import { useEffect } from "react";
 import socketService from "./services/socketService";
+import { JoinRoom } from "./components/JoinRom";
 
 const AppContainer = styled.div`
     width: 100%;
@@ -43,7 +44,9 @@ function App() {
     return (
         <AppContainer>
             <WelcomeText>Welcome to Tic-Tac-toe</WelcomeText>
-            <MainContainer>Hey!</MainContainer>
+            <MainContainer>
+                <JoinRoom />
+            </MainContainer>
         </AppContainer>
     );
 }
