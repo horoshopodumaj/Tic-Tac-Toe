@@ -5,10 +5,11 @@ import "./App.css";
 // import Rooms from "./components/Rooms";
 import styled from "styled-components";
 //import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import socketService from "./services/socketService";
 import { JoinRoom } from "./components/JoinRom";
 import GameContext, { IGameContextProps } from "./gameContext";
+import gameContext from "./gameContext";
 
 const AppContainer = styled.div`
     width: 100%;
@@ -32,7 +33,9 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-    const [isInRoom, setInRoom] = useState(false);
+    const [roomName, setRoomName] = useState(false);
+
+    const { setInRoom, isInRoom } = useContext(gameContext);
 
     const connectSocket = async () => {
         const socket = await socketService.connect("http://localhost:5000").catch((err) => {
