@@ -1,11 +1,12 @@
 import "./App.css";
-import Header from "./components/Header";
-import Login from "./components/Login";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Rooms from "./components/Rooms";
+// import Header from "./components/Header";
+// import Login from "./components/Login";
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import Rooms from "./components/Rooms";
 import styled from "styled-components";
-import { io } from "socket.io-client";
+//import { io } from "socket.io-client";
 import { useEffect } from "react";
+import socketService from "./services/socketService";
 
 const AppContainer = styled.div`
     width: 100%;
@@ -29,6 +30,16 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+    const connectSocket = async () => {
+        const socket = await socketService.connect("http://localhost:5000").catch((err) => {
+            console.log("Error: ", err);
+        });
+    };
+
+    useEffect(() => {
+        connectSocket();
+    }, []);
+
     return (
         <AppContainer>
             <WelcomeText>Welcome to Tic-Tac-toe</WelcomeText>
