@@ -36,6 +36,7 @@ const MainContainer = styled.div`
 function App() {
     const [isInRoom, setInRoom] = useState(false);
     const [playerSymbol, setPlayerSymbol] = useState<"x" | "o">("x");
+    const [isPlayerTurn, setPlayerTurn] = useState(false);
 
     const connectSocket = async () => {
         const socket = await socketService.connect("http://localhost:5000").catch((err) => {
@@ -52,6 +53,8 @@ function App() {
         setInRoom,
         playerSymbol,
         setPlayerSymbol,
+        isPlayerTurn,
+        setPlayerTurn,
     };
 
     return (

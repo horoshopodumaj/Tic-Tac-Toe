@@ -75,7 +75,7 @@ export function Game() {
         [null, null, null],
     ]);
 
-    const { playerSymbol, setPlayerSymbol } = useContext(gameContext);
+    const { playerSymbol, setPlayerSymbol, isPlayerTurn, setPlayerTurn } = useContext(gameContext);
 
     const updateGameMatrix = (column: number, row: number, symbol: "x" | "o") => {
         const newMatrix = [...matrix];
@@ -93,6 +93,7 @@ export function Game() {
         if (socketService.socket)
             gameService.onGameUpdate(socketService.socket, (newMatrix) => {
                 setMatrix(newMatrix);
+                setPlayerTurn(true);
             });
     };
 
@@ -102,6 +103,7 @@ export function Game() {
 
     return (
         <GameContainer>
+            {!isPlayerTurn && <PlayStopper />}
             {matrix.map((row, rowIndex) => {
                 return (
                     <RowContainer>

@@ -5,6 +5,8 @@ export interface IGameContextProps {
     setInRoom: (inRoom: boolean) => void;
     playerSymbol: "x" | "o";
     setPlayerSymbol: (symbol: "x" | "o") => void;
+    isPlayerTurn: boolean;
+    setPlayerTurn: (turn: boolean) => void;
 }
 
 const defaultState: IGameContextProps = {
@@ -12,6 +14,8 @@ const defaultState: IGameContextProps = {
     setInRoom: () => {},
     playerSymbol: "x",
     setPlayerSymbol: () => {},
+    isPlayerTurn: false,
+    setPlayerTurn: () => {},
 };
 
 export default createContext(defaultState);
