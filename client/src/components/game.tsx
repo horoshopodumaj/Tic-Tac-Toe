@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import gameContext from "../gameContext";
 
 const GameContainer = styled.div`
     display: flex;
@@ -72,13 +73,27 @@ export function Game() {
         [null, null, null],
     ]);
 
+    const { playerSymbol, setPlayerSymbol } = useContext(gameContext);
+
+    const updateGameMatrix = (column: number, row: number, symbol: "x" | "o") => {
+        const newMatrix = [...matrix];
+
+        if (newMatrix[row][column] === null || newMatrix[row][column] === "null") {
+            newMatrix[row][column] = symbol;
+            setMatrix(newMatrix);
+        }
+    };
+
     return (
         <GameContainer>
             {matrix.map((row, rowIndex) => {
                 return (
                     <RowContainer>
                         {row.map((column, columnIndex) => (
-                            <Cell>
+                            <Cell
+                                onClick={() =>
+                                    updateGameMatrix(columnIndex, rowIndex, playerSymbol)
+                                }>
                                 {column && column !== "null" ? (
                                     column === "x" ? (
                                         <X />
