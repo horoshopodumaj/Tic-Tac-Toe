@@ -35,9 +35,11 @@ function App() {
     const [isGameStarted, setGameStarted] = useState(false);
 
     const connectSocket = async () => {
-        const socket = await socketService.connect("http://localhost:5000").catch((err) => {
-            console.log("Error: ", err);
-        });
+        const socket = await socketService
+            .connect("https://tic-tac-toe-socket.onrender.com")
+            .catch((err) => {
+                console.log("Error: ", err);
+            });
     };
 
     useEffect(() => {
