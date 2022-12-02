@@ -7,14 +7,29 @@ import socketService from "../../src/services/socketService";
 const GameContainer = styled.div`
     display: flex;
     flex-direction: column;
+
+    gap: 15px;
     font-family: "Zen Tokyo Zoo", cursive;
     position: relative;
+    @media screen and (max-width: 545px) {
+        gap: 10px;
+    }
+    @media screen and (max-width: 430px) {
+        gap: 7px;
+    }
 `;
 
 const RowContainer = styled.div`
     width: 100%;
     display: flex;
-    margin-bottom: 10px;
+    gap: 15px;
+    justify-content: center;
+    @media screen and (max-width: 545px) {
+        gap: 10px;
+    }
+    @media screen and (max-width: 430px) {
+        gap: 7px;
+    }
 `;
 
 const Cell = styled.div`
@@ -22,7 +37,6 @@ const Cell = styled.div`
     height: 13em;
     display: flex;
     align-items: center;
-    margin-right: 10px;
     justify-content: center;
     border-radius: 20px;
     cursor: pointer;
@@ -31,6 +45,18 @@ const Cell = styled.div`
     border-bottom: 3px solid #0e9113;
     border-right: 3px solid #0e9113;
     transition: all 270ms ease-in-out;
+    @media screen and (max-width: 715px) {
+        width: 10em;
+        height: 10em;
+    }
+    @media screen and (max-width: 530px) {
+        width: 8em;
+        height: 8em;
+    }
+    @media screen and (max-width: 430px) {
+        width: 6em;
+        height: 6em;
+    }
     &:hover {
         background-color: #0e911328;
     }
@@ -52,6 +78,9 @@ const X = styled.span`
     &::after {
         content: "X";
     }
+    @media screen and (max-width: 430px) {
+        font-size: 60px;
+    }
 `;
 
 const O = styled.span`
@@ -59,6 +88,9 @@ const O = styled.span`
     color: #1976d2;
     &::after {
         content: "O";
+    }
+    @media screen and (max-width: 430px) {
+        font-size: 60px;
     }
 `;
 
@@ -186,7 +218,7 @@ export function Game() {
 
     return (
         <GameContainer>
-            {!isGameStarted && <h2>Wait for the opponent to start the game!</h2>}
+            {!isGameStarted && <h2 className="wait">Wait for the opponent to start the game!</h2>}
             {(!isGameStarted || !isPlayerTurn) && <PlayStopper />}
             {matrix.map((row, rowIdx) => {
                 return (

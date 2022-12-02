@@ -25,6 +25,12 @@ const RoomIdInput = styled.input`
     border-radius: 3px;
     padding: 0 10px;
     margin-top: 1em;
+    @media screen and (max-width: 390px) {
+        width: 19em;
+    }
+    @media screen and (max-width: 350px) {
+        width: 100%;
+    }
 `;
 
 const JoinButton = styled.button`

@@ -13,11 +13,15 @@ const AppContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 15px;
+    @media screen and (max-width: 545px) {
+        padding: 0 10px;
+    }
 `;
 
 const WelcomeText = styled.h1`
     margin: 0;
     color: #1976d2;
+    text-align: center;
 `;
 
 const MainContainer = styled.div`
