@@ -7,8 +7,8 @@ export class MainController {
     public onConnection(@ConnectedSocket() socket: Socket, @SocketIO() io: Server) {
         console.log("New Socket connected: ", socket.id);
 
-        // socket.on("custom_event", (data: any) => {
-        //     console.log("Data", data);
-        // });
+        socket.on("custom_event", (data: any) => {
+            console.log("Data: ", data);
+        });
     }
 }
