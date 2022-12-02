@@ -75,7 +75,14 @@ export function Game() {
         [null, null, null],
     ]);
 
-    const { playerSymbol, setPlayerSymbol, isPlayerTurn, setPlayerTurn } = useContext(gameContext);
+    const {
+        playerSymbol,
+        setPlayerSymbol,
+        isPlayerTurn,
+        setPlayerTurn,
+        setGameStarted,
+        isGameSaterted,
+    } = useContext(gameContext);
 
     const updateGameMatrix = (column: number, row: number, symbol: "x" | "o") => {
         const newMatrix = [...matrix];
@@ -86,6 +93,7 @@ export function Game() {
         }
         if (socketService.socket) {
             gameService.updateGame(socketService.socket, newMatrix);
+            setPlayerTurn(false);
         }
     };
 
@@ -97,16 +105,28 @@ export function Game() {
             });
     };
 
+    const handleGameStart = () => {
+        if (socketService.socket)
+            gameService.onStartGame(socketService.socket, (options) => {
+                setGameStarted(true);
+                setPlayerSymbol(options.symbol);
+                if (options.start) setPlayerTurn(true);
+                else setPlayerTurn(false);
+            });
+    };
+
     useEffect(() => {
         handleGameUpdate();
+        handleGameStart();
     }, []);
 
     return (
         <GameContainer>
-            {!isPlayerTurn && <PlayStopper />}
+            {!isGameSaterted && <h2>Wait for the opponent to start the game!</h2>}
+            {(!isGameSaterted || !isPlayerTurn) && <PlayStopper />}
             {matrix.map((row, rowIndex) => {
                 return (
-                    <RowContainer>
+                    <RowContainer key={rowIndex}>
                         {row.map((column, columnIndex) => (
                             <Cell
                                 onClick={() =>

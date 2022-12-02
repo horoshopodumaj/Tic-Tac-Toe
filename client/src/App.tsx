@@ -37,6 +37,7 @@ function App() {
     const [isInRoom, setInRoom] = useState(false);
     const [playerSymbol, setPlayerSymbol] = useState<"x" | "o">("x");
     const [isPlayerTurn, setPlayerTurn] = useState(false);
+    const [isGameSaterted, setGameStarted] = useState(false);
 
     const connectSocket = async () => {
         const socket = await socketService.connect("http://localhost:5000").catch((err) => {
@@ -55,6 +56,8 @@ function App() {
         setPlayerSymbol,
         isPlayerTurn,
         setPlayerTurn,
+        isGameSaterted,
+        setGameStarted,
     };
 
     return (
