@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React from "react";
 
 export interface IGameContextProps {
     isInRoom: boolean;
@@ -7,7 +7,7 @@ export interface IGameContextProps {
     setPlayerSymbol: (symbol: "x" | "o") => void;
     isPlayerTurn: boolean;
     setPlayerTurn: (turn: boolean) => void;
-    isGameSaterted: boolean;
+    isGameStarted: boolean;
     setGameStarted: (started: boolean) => void;
 }
 
@@ -18,8 +18,8 @@ const defaultState: IGameContextProps = {
     setPlayerSymbol: () => {},
     isPlayerTurn: false,
     setPlayerTurn: () => {},
-    isGameSaterted: false,
+    isGameStarted: false,
     setGameStarted: () => {},
 };
 
-export default createContext(defaultState);
+export default React.createContext(defaultState);

@@ -1,11 +1,6 @@
-import "./App.css";
-// import Header from "./components/Header";
-// import Login from "./components/Login";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import Rooms from "./components/Rooms";
-import styled from "styled-components";
-//import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import "./App.css";
 import socketService from "./services/socketService";
 import { JoinRoom } from "./components/JoinRom";
 import GameContext, { IGameContextProps } from "./gameContext";
@@ -37,7 +32,7 @@ function App() {
     const [isInRoom, setInRoom] = useState(false);
     const [playerSymbol, setPlayerSymbol] = useState<"x" | "o">("x");
     const [isPlayerTurn, setPlayerTurn] = useState(false);
-    const [isGameSaterted, setGameStarted] = useState(false);
+    const [isGameStarted, setGameStarted] = useState(false);
 
     const connectSocket = async () => {
         const socket = await socketService.connect("http://localhost:5000").catch((err) => {
@@ -56,14 +51,14 @@ function App() {
         setPlayerSymbol,
         isPlayerTurn,
         setPlayerTurn,
-        isGameSaterted,
+        isGameStarted,
         setGameStarted,
     };
 
     return (
         <GameContext.Provider value={gameContextValue}>
             <AppContainer>
-                <WelcomeText>Welcome to Tic-Tac-toe</WelcomeText>
+                <WelcomeText>Welcome to Tic-Tac-Toe</WelcomeText>
                 <MainContainer>
                     {!isInRoom && <JoinRoom />}
                     {isInRoom && <Game />}
@@ -71,16 +66,6 @@ function App() {
             </AppContainer>
         </GameContext.Provider>
     );
-}
-
-{
-    /* <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/rooms" element={<Rooms />} />
-                </Routes>
-            </BrowserRouter> */
 }
 
 export default App;
